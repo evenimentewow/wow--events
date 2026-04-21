@@ -37,8 +37,9 @@
   /* ── HERO HEADER with VIDEO BG ── */
   .site-header {
     position: relative;
-    min-height: 420px;
-    width: 100%;
+    min-height: clamp(320px, 55vw, 620px);
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -393,6 +394,28 @@
   }
   .footer-legal button:hover { color: var(--gold-light); }
 
+
+  @media (max-width: 600px) {
+    .site-header { min-height: 260px; }
+    .preset-bar { padding: 8px 1rem; gap: 6px; flex-wrap: wrap; }
+    .preset-btn { font-size: 14px; padding: 4px 10px; }
+    .preset-lbl { font-size: 14px; }
+    .main-layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; max-height: none; border-left: none; border-bottom: 0.5px solid var(--border); }
+    .services-panel { padding: 1rem; }
+    .card { flex-direction: column; align-items: flex-start; gap: 6px; padding: 0.75rem; }
+    .card-price { margin-left: 0; }
+    .summary-title { font-size: 26px; }
+    .total-val { font-size: 40px; }
+    .modal { padding: 1.25rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+    .footer-right { align-items: center; }
+    .footer-legal { justify-content: center; }
+  }
+  @media (max-width: 400px) {
+    .site-header { min-height: 200px; }
+  }
 </style>
 </head>
 <body>
@@ -403,8 +426,8 @@
     <source src="bg-video.mp4" type="video/mp4">
   </video>
   <div class="video-overlay"></div>
-  <div class="header-content">
-    <h1 style="font-family:'CampanaScript',cursive; font-size:clamp(130px,20vw,240px); font-weight:400; color:#ffffff; line-height:1.1; margin:0; text-shadow:0 2px 40px rgba(0,0,0,0.5);">Creeaz&#x103; <em style="font-style:italic;">evenimentul</em> perfect</h1>
+  <div class="header-content" style="padding:2rem 1.5rem; max-width:900px; width:100%;">
+    <h1 style="font-family:'CampanaScript',cursive; font-size:clamp(36px,8vw,90px); font-weight:400; color:#ffffff; line-height:1.1; margin:0; text-shadow:0 2px 40px rgba(0,0,0,0.5);">Creeaz&#x103; <em style="font-style:italic;">evenimentul</em> perfect</h1>
   </div>
 </header>
 
