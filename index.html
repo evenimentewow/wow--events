@@ -37,9 +37,8 @@
   /* ── HERO HEADER with VIDEO BG ── */
   .site-header {
     position: relative;
-    min-height: clamp(320px, 55vw, 620px);
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    min-height: 420px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -175,26 +174,25 @@
   }
   .section-label-txt { font-size: 20px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
   .section-divider { flex: 1; height: 0.5px; background: var(--border); }
-  .cards-grid { display: flex; flex-direction: column; gap: 8px; }
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
 
   /* CARD */
   .card {
     background: var(--dark2);
     border: 0.5px solid var(--border-light);
     border-radius: var(--radius);
-    padding: 0.75rem 1.25rem;
+    padding: 1rem 1.1rem;
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
     position: relative;
     user-select: none;
     display: flex;
-    align-items: center;
-    gap: 1.25rem;
+    flex-direction: column;
   }
   .card:hover { border-color: var(--border); background: #322C25; }
   .card.selected { border-color: var(--gold); background: rgba(201,168,76,0.07); }
   .card-check {
-    position: relative; top: auto; right: auto; flex-shrink: 0;
+    position: absolute; top: 10px; right: 10px;
     width: 18px; height: 18px;
     border-radius: 50%;
     border: 1px solid rgba(201,168,76,0.3);
@@ -204,8 +202,8 @@
   .card.selected .card-check { background: var(--gold); border-color: var(--gold); }
   .card-check svg { display: none; }
   .card.selected .card-check svg { display: block; }
-  .card-name { font-size: 22px; font-weight: 500; color: var(--white); margin-bottom: 2px; line-height: 1.3; min-width: 180px; }
-  .card-desc { font-size: 22px; color: var(--muted); line-height: 1.4; margin-bottom: 0; flex: 1; }
+  .card-name { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 4px; line-height: 1.3; padding-right: 24px; }
+  .card-desc { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 10px; flex: 1; }
   .card-price { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--gold-light); }
   .card-price small { font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 400; color: var(--muted); }
 
@@ -395,27 +393,104 @@
   .footer-legal button:hover { color: var(--gold-light); }
 
 
-  @media (max-width: 600px) {
-    .site-header { min-height: 260px; }
-    .preset-bar { padding: 8px 1rem; gap: 6px; flex-wrap: wrap; }
-    .preset-btn { font-size: 14px; padding: 4px 10px; }
-    .preset-lbl { font-size: 14px; }
-    .main-layout { grid-template-columns: 1fr; }
-    .sidebar { position: static; max-height: none; border-left: none; border-bottom: 0.5px solid var(--border); }
-    .services-panel { padding: 1rem; }
-    .card { flex-direction: column; align-items: flex-start; gap: 6px; padding: 0.75rem; }
-    .card-price { margin-left: 0; }
-    .summary-title { font-size: 26px; }
-    .total-val { font-size: 40px; }
-    .modal { padding: 1.25rem; }
-    .form-row { grid-template-columns: 1fr; }
-    .footer-inner { flex-direction: column; align-items: center; gap: 12px; text-align: center; }
-    .footer-right { align-items: center; }
-    .footer-legal { justify-content: center; }
+  /* ── PACKAGES SECTION ── */
+  .packages-section { padding: 2rem 1.75rem 0; }
+  .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 1rem; }
+  .pkg-card {
+    background: var(--dark2);
+    border: 0.5px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+    position: relative;
+    overflow: hidden;
   }
-  @media (max-width: 400px) {
-    .site-header { min-height: 200px; }
+  .pkg-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
   }
+  .pkg-card.basic::before    { background: #888780; }
+  .pkg-card.standard::before { background: #5DCAA5; }
+  .pkg-card.pro::before      { background: var(--gold); }
+  .pkg-card.premium::before  { background: linear-gradient(90deg, var(--gold), #fff, var(--gold)); }
+  .pkg-card:hover { border-color: var(--border); transform: translateY(-2px); }
+  .pkg-card.active { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+  .pkg-card.active.basic    { border-color: #888780; }
+  .pkg-card.active.standard { border-color: #5DCAA5; }
+  .pkg-card.active.pro      { border-color: var(--gold); }
+  .pkg-card.active.premium  { border-color: #E8D08A; }
+  .pkg-tier { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 6px; }
+  .pkg-card.basic    .pkg-tier { color: #888780; }
+  .pkg-card.standard .pkg-tier { color: #5DCAA5; }
+  .pkg-card.pro      .pkg-tier { color: var(--gold); }
+  .pkg-card.premium  .pkg-tier { color: #E8D08A; }
+  .pkg-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--white); margin-bottom: 8px; line-height: 1.2; }
+  .pkg-includes { font-size: 11px; color: var(--muted); line-height: 1.7; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 0.5px solid var(--border-light); }
+  .pkg-includes li { list-style: none; padding-left: 0; }
+  .pkg-includes li::before { content: '◇ '; color: var(--gold); font-size: 9px; }
+  .pkg-price-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .pkg-total { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: var(--gold-light); }
+  .pkg-select-btn { font-size: 11px; padding: 4px 12px; border: 0.5px solid var(--border); border-radius: 20px; background: transparent; color: var(--muted); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+  .pkg-card.active .pkg-select-btn { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+  .pkg-select-btn:hover { border-color: var(--gold); color: var(--gold-light); }
+  .pkg-badge { position: absolute; top: 14px; right: 12px; font-size: 9px; font-weight: 500; padding: 2px 7px; border-radius: 20px; }
+  .pkg-card.pro .pkg-badge { background: rgba(201,168,76,0.15); color: var(--gold); border: 0.5px solid var(--border); }
+  .pkg-card.premium .pkg-badge { background: rgba(232,208,138,0.15); color: #E8D08A; border: 0.5px solid rgba(232,208,138,0.3); }
+
+  /* ── EXTRAS CARD ── */
+  .extras-card {
+    background: var(--dark2);
+    border: 0.5px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  .extras-card-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--gold-light); margin-bottom: 4px; }
+  .extras-card-sub { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+  .extras-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; }
+  .extra-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: rgba(0,0,0,0.2); border-radius: var(--radius); border: 0.5px solid var(--border-light); font-size: 12px; gap: 6px; }
+  .extra-item-name { color: var(--white); opacity: 0.85; }
+  .extra-item-price { color: var(--gold-light); font-weight: 500; white-space: nowrap; font-size: 12px; }
+
+  /* ── ROMANTIC FOOTER THEME ── */
+  footer {
+    margin-top: 0;
+    background: linear-gradient(135deg, #1a0a0a 0%, #2d1515 40%, #1a0f0a 70%, #120808 100%);
+    border-top: 0.5px solid rgba(201,168,76,0.3);
+    padding: 3rem 1.5rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 80%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  footer::after {
+    content: '♦';
+    position: absolute;
+    top: -8px; left: 50%; transform: translateX(-50%);
+    color: var(--gold);
+    font-size: 14px;
+    background: #1a0a0a;
+    padding: 0 8px;
+  }
+  .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
+  .footer-tagline { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-style: italic; color: rgba(201,168,76,0.6); text-align: center; margin-bottom: 1.5rem; letter-spacing: 0.05em; }
+  .footer-logo img { height: 52px; width: auto; filter: drop-shadow(0 2px 12px rgba(201,168,76,0.4)); }
+  .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .footer-links { display: flex; gap: 1.25rem; flex-wrap: wrap; justify-content: flex-end; }
+  .footer-links a { font-size: 13px; color: rgba(201,168,76,0.7); text-decoration: none; transition: color 0.15s; }
+  .footer-links a:hover { color: var(--gold-light); }
+  .footer-copy { font-size: 11px; color: var(--muted); opacity: 0.4; text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 0.5px solid rgba(201,168,76,0.1); }
+  .footer-legal { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+  .footer-legal a { font-size: 12px; color: rgba(201,168,76,0.5); text-decoration: none; }
+  .footer-legal a:hover { color: var(--gold-light); }
 </style>
 </head>
 <body>
@@ -426,21 +501,126 @@
     <source src="bg-video.mp4" type="video/mp4">
   </video>
   <div class="video-overlay"></div>
-  <div class="header-content" style="padding:2rem 1.5rem; max-width:900px; width:100%; margin-top:25%;">
-    <h1 style="font-family:'CampanaScript',cursive; font-size:clamp(36px,8vw,90px); font-weight:400; color:#ffffff; line-height:1.1; margin:0; text-shadow:0 2px 40px rgba(0,0,0,0.5);">Creeaz&#x103; <em style="font-style:italic;">evenimentul</em> perfect</h1>
+  <div class="header-content">
+    <h1 style="font-family:'CampanaScript',cursive; font-size:clamp(130px,20vw,240px); font-weight:400; color:#ffffff; line-height:1.1; margin:0; text-shadow:0 2px 40px rgba(0,0,0,0.5);">Creeaz&#x103; <em style="font-style:italic;">evenimentul</em> perfect</h1>
   </div>
 </header>
 
 <!-- PRESET BAR -->
-<div class="preset-bar">
-  <span class="preset-lbl">Pachete rapide:</span>
-  <button class="preset-btn" onclick="applyPreset('diamond')">◆ Pachet Diamond — Tot ce există</button>
-  <button class="preset-btn" onclick="applyPreset('nunta')">◇ Nuntă Completă</button>
-  <button class="preset-btn" onclick="applyPreset('basic')">◇ Pachet Starter</button>
+<div class="preset-bar" style="min-height:4px;padding:0;border:none;background:transparent;"></div>
+
+    <p style="font-size:22px;color:rgba(253,250,245,0.75);max-width:600px;margin:0 auto 1.5rem;font-weight:300;letter-spacing:0.02em;text-align:center;padding:12px 1.5rem 0;">Alege pachetul de servicii pentru evenimentul tău sau solicită o ofertă personalizată</p>
+
+
+<!-- PACKAGES SECTION -->
+<div class="packages-section">
+  <div class="section-head" style="margin-bottom:0">
+    <div class="section-icon">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 4h4l-3.2 2.4 1.2 4L7 9.2 3.5 11.4l1.2-4L1.5 5H5.5L7 1z" stroke="#C9A84C" stroke-width="1" stroke-linejoin="round"/></svg>
+    </div>
+    <span class="section-label-txt">Pachete Evenimente</span>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="packages-grid">
+
+    <!-- BASIC -->
+    <div class="pkg-card basic" id="pkg-basic" onclick="selectPackage('basic')">
+      <div class="pkg-tier">Basic</div>
+      <div class="pkg-name">Pachet Basic</div>
+      <ul class="pkg-includes">
+        <li>Sonorizare Basic</li>
+        <li>2 topuri + 2 bass, pupitru DJ, consolă DJ</li>
+        <li>Servicii DJ pe toată durata evenimentului</li>
+        <li>1 microfon wireless</li>
+        <li>Lights Basic — 2 turnuri moving heads + bar lights RGB</li>
+      </ul>
+      <div class="pkg-price-row">
+        <div class="pkg-total">750 €</div>
+        <button class="pkg-select-btn" id="btn-pkg-basic">Selectează</button>
+      </div>
+    </div>
+
+    <!-- STANDARD -->
+    <div class="pkg-card standard" id="pkg-standard" onclick="selectPackage('standard')">
+      <div class="pkg-tier">Standard</div>
+      <div class="pkg-name">Pachet Standard</div>
+      <ul class="pkg-includes">
+        <li>Sonorizare Premium</li>
+        <li>4 topuri + 4 bass, mixer audio digital</li>
+        <li>Servicii DJ + microfoane până la 4 buc</li>
+        <li>Lights Basic — 2 turnuri moving heads + bar lights RGB</li>
+        <li>Efect fum greu (gheață carbonică)</li>
+      </ul>
+      <div class="pkg-price-row">
+        <div class="pkg-total">1.430 €</div>
+        <button class="pkg-select-btn" id="btn-pkg-standard">Selectează</button>
+      </div>
+    </div>
+
+    <!-- PRO -->
+    <div class="pkg-card pro" id="pkg-pro" onclick="selectPackage('pro')">
+      <div class="pkg-tier">Pro</div>
+      <span class="pkg-badge">Popular</span>
+      <div class="pkg-name">Pachet Pro</div>
+      <ul class="pkg-includes">
+        <li>Sonorizare Premium completă</li>
+        <li>Lights Supreme — șchele Truss, laser RGB, 4× moving head</li>
+        <li>Efect fum greu + Jet CO₂</li>
+        <li>MC — prezentator eveniment</li>
+        <li>Platformă Video 360°</li>
+        <li>Recuzită party</li>
+      </ul>
+      <div class="pkg-price-row">
+        <div class="pkg-total">2.930 €</div>
+        <button class="pkg-select-btn" id="btn-pkg-pro">Selectează</button>
+      </div>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="pkg-card premium" id="pkg-premium" onclick="selectPackage('premium')">
+      <div class="pkg-tier">Premium</div>
+      <span class="pkg-badge">Complet</span>
+      <div class="pkg-name">Pachet Premium</div>
+      <ul class="pkg-includes">
+        <li>Sonorizare Premium completă</li>
+        <li>Lights Supreme — setup profesional complet</li>
+        <li>Toate efectele speciale (fum, CO₂, confetti, baloane, jet spray)</li>
+        <li>MC, solist individual, darabana</li>
+        <li>Concert Café, Video 360°, Recuzită party</li>
+        <li>Coregrafie dans miri (3 ședințe)</li>
+      </ul>
+      <div class="pkg-price-row">
+        <div class="pkg-total">4.750 €</div>
+        <button class="pkg-select-btn" id="btn-pkg-premium">Selectează</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EXTRAS CARD -->
+  <div class="extras-card">
+    <div class="extras-card-title">Servicii Extra</div>
+    <div class="extras-card-sub">Adaugă oricând la pachetul ales sau solicită separat</div>
+    <div class="extras-grid">
+      <div class="extra-item"><span class="extra-item-name">MC — Prezentator</span><span class="extra-item-price">de la 200 €</span></div>
+      <div class="extra-item"><span class="extra-item-name">Solist individual</span><span class="extra-item-price">de la 350 €</span></div>
+      <div class="extra-item"><span class="extra-item-name">Ansamblu folcloric</span><span class="extra-item-price">de la 1.000 €</span></div>
+      <div class="extra-item"><span class="extra-item-name">Darabana</span><span class="extra-item-price">de la 350 €</span></div>
+      <div class="extra-item"><span class="extra-item-name">Concert Café</span><span class="extra-item-price">de la 600 €</span></div>
+      <div class="extra-item"><span class="extra-item-name">Video 360°</span><span class="extra-item-price">de la 250 € / 2h</span></div>
+      <div class="extra-item"><span class="extra-item-name">Recuzită party</span><span class="extra-item-price">de la 100 €</span></div>
+      <div class="extra-item"><span class="extra-item-name">Jet Spray (2 buc)</span><span class="extra-item-price">de la 150 €</span></div>
+      <div class="extra-item"><span class="extra-item-name">Bubble Machine</span><span class="extra-item-price">de la 120 €</span></div>
+      <div class="extra-item"><span class="extra-item-name">Jet CO₂ (2 buc)</span><span class="extra-item-price">de la 200 €</span></div>
+      <div class="extra-item"><span class="extra-item-name">Confetti Machine</span><span class="extra-item-price">de la 100 €</span></div>
+      <div class="extra-item"><span class="extra-item-name">Coregrafie miri</span><span class="extra-item-price">de la 150 €</span></div>
+      <div class="extra-item"><span class="extra-item-name">Event Planner</span><span class="extra-item-price">de la 1.000 €</span></div>
+      <div class="extra-item"><span class="extra-item-name">Deplasare &gt;60 km</span><span class="extra-item-price">+150 €</span></div>
+    </div>
+  </div>
 
 </div>
-
-    <p style="font-size:22px;color:rgba(253,250,245,0.75);max-width:600px;margin:0 auto 1.5rem;font-weight:300;letter-spacing:0.02em;text-align:center;padding:12px 1.5rem 0;">Configurează pachetul de servicii pentru evenimentul tău și primește o ofertă personalizată</p>
 
 <div class="main-layout">
   <div class="services-panel">
@@ -703,6 +883,7 @@
 </div>
 
 <footer>
+  <div class="footer-tagline">„Transformăm momentele speciale în amintiri de neuitat"</div>
   <div class="footer-inner">
     <div class="footer-logo">
       <img src="logo.png" alt="WOW Events">
@@ -719,7 +900,7 @@
     <button onclick="openLegal('confidentialitate')">Politica de confidențialitate</button>
     <button onclick="openLegal('cookies')">Politica de cookies</button>
   </div>
-  <div class="footer-copy">© 2025 WOW Events · Pașcani, str. Grădiniței, nr. 22, jud. Iași</div>
+  <div class="footer-copy">© 2025 WOW Events · Pașcani, Iași, Tg. Neamț</div>
     </div>
   </div>
 </footer>
@@ -800,7 +981,7 @@ const SERVICES = {
   sound_premium:  { price: 1000, cat: 'Sonorizare',       name: 'Sonorizare Premium' },
   lights_basic:   { price: 250,  cat: 'Lumini',           name: 'Lights Basic' },
   lights_fair:    { price: 450,  cat: 'Lumini',           name: 'Lights Fair' },
-  lights_supreme: { price: 800,  cat: 'Lumini',           name: 'Lights Supreme' },
+  lights_supreme: { price: 1000, cat: 'Lumini',           name: 'Lights Supreme' },
   fx_jetspray:    { price: 150,  cat: 'Efecte Speciale',  name: 'Jet Spray' },
   fx_bubble:      { price: 120,  cat: 'Efecte Speciale',  name: 'Bubble Machine' },
   fx_co2:         { price: 200,  cat: 'Efecte Speciale',  name: 'Jet CO₂' },
@@ -808,13 +989,13 @@ const SERVICES = {
   fx_fumgreu:     { price: 180,  cat: 'Efecte Speciale',  name: 'Fum greu' },
   mc:             { price: 200,  cat: 'Servicii Extra',   name: 'MC — Prezentator' },
   solist:         { price: 350,  cat: 'Servicii Extra',   name: 'Solist individual' },
-  folclor:        { price: 500,  cat: 'Servicii Extra',   name: 'Ansamblu folcloric' },
-  darabana:       { price: 150,  cat: 'Servicii Extra',   name: 'Darabana' },
+  folclor:        { price: 1000, cat: 'Servicii Extra',   name: 'Ansamblu folcloric' },
+  darabana:       { price: 350,  cat: 'Servicii Extra',   name: 'Darabana' },
   concertcafe:    { price: 600,  cat: 'Servicii Extra',   name: 'Concert Café' },
   video360:       { price: 250,  cat: 'Servicii Extra',   name: 'Video 360°' },
   recuzita:       { price: 100,  cat: 'Servicii Extra',   name: 'Recuzită party' },
   coregrafie:     { price: 150,  cat: 'Nuntă',       name: 'Coregrafie dans miri' },
-  eventplanner:   { price: 400,  cat: 'Organizare',       name: 'Event planner' }
+  eventplanner:   { price: 1000, cat: 'Organizare',       name: 'Event planner' }
 };
 const SOUND_IDS = ['sound_basic','sound_premium'];
 const LIGHTS_IDS = ['lights_basic','lights_supreme'];
@@ -958,107 +1139,131 @@ document.querySelectorAll('.legal-modal-overlay').forEach(el => {
   });
 });
 
+
+const PKG_PRESETS = {
+  basic:    ['sound_basic', 'lights_basic'],
+  standard: ['sound_premium', 'lights_basic', 'fx_fumgreu'],
+  pro:      ['sound_premium', 'lights_supreme', 'fx_fumgreu', 'fx_co2', 'mc', 'video360', 'recuzita'],
+  premium:  ['sound_premium', 'lights_supreme', 'fx_jetspray', 'fx_bubble', 'fx_co2', 'fx_confetti', 'fx_fumgreu', 'mc', 'solist', 'darabana', 'concertcafe', 'video360', 'recuzita', 'coregrafie']
+};
+let activePackage = null;
+
+function selectPackage(name) {
+  if (activePackage === name) {
+    activePackage = null;
+    document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.pkg-select-btn').forEach(b => b.textContent = 'Selectează');
+    selected = {};
+    travelOn = false;
+    document.getElementById('travel_check').checked = false;
+    document.getElementById('travel_card').classList.remove('selected');
+    document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
+    render();
+    return;
+  }
+  activePackage = name;
+  document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.pkg-select-btn').forEach(b => b.textContent = 'Selectează');
+  document.getElementById('pkg-' + name).classList.add('active');
+  document.getElementById('btn-pkg-' + name).textContent = '✓ Selectat';
+  selected = {};
+  travelOn = false;
+  document.getElementById('travel_check').checked = false;
+  document.getElementById('travel_card').classList.remove('selected');
+  document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
+  (PKG_PRESETS[name] || []).forEach(function(id) {
+    selected[id] = true;
+    var el = document.querySelector('[data-id="' + id + '"]');
+    if (el) el.classList.add('selected');
+  });
+  render();
+  document.querySelector('.sidebar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 </script>
 
 <!-- LEGAL MODALS -->
 <div class="legal-modal-overlay" id="modal-termeni">
   <div class="legal-modal">
-    <button class="legal-close" onclick="closeLegal('termeni')">✕</button>
+    <button class="legal-modal-close" onclick="closeLegal('termeni')">✕</button>
     <h2>Termeni și Condiții</h2>
-    <div class="legal-date">Ultima actualizare: Aprilie 2025</div>
-    <p>Vă rugăm să citiți cu atenție acești termeni înainte de a utiliza serviciile WOW Events SRL.</p>
-    <h3>1. Despre noi</h3>
-    <p>WOW Events SRL este o companie de organizare și tehnicizare evenimente, cu sediul în Pașcani, str. Grădiniței, nr. 22, jud. Iași. Oferim servicii de sonorizare, iluminat, efecte speciale și management de evenimente pentru nunți, botezuri și alte ocazii speciale.</p>
-    <h3>2. Utilizarea configuratorului</h3>
-    <p>Configuratorul de pachete de pe acest site are caracter informativ. Prețurile afișate sunt estimative și pot varia în funcție de locație, dată, numărul de invitați și cerințe specifice. Oferta finală se stabilește exclusiv prin contract semnat între părți.</p>
-    <h3>3. Rezervarea și contractul</h3>
-    <ul>
-      <li>Trimiterea formularului de ofertă nu constituie o rezervare fermă</li>
-      <li>Rezervarea devine oficială numai după semnarea contractului și achitarea avansului</li>
-      <li>Avansul este nerambursabil în cazul anulării din inițiativa clientului</li>
-      <li>WOW Events SRL își rezervă dreptul de a refuza comenzi fără a justifica decizia</li>
-    </ul>
-    <h3>4. Prețuri și plăți</h3>
-    <ul>
-      <li>Prețurile sunt exprimate în EUR, cu TVA inclus</li>
-      <li>Modalitățile de plată (avans, rest) se stabilesc prin contract</li>
-      <li>Prețurile pot fi modificate fără notificare prealabilă până la semnarea contractului</li>
-    </ul>
-    <h3>5. Deplasări</h3>
-    <p>Pentru evenimente situate la peste 60 km față de Pașcani se percepe un tarif suplimentar pentru transport, cazare și masă personal, conform ofertei negociate.</p>
-    <h3>6. Forță majoră</h3>
-    <p>WOW Events SRL nu răspunde pentru neîndeplinirea obligațiilor contractuale cauzate de evenimente de forță majoră (calamități naturale, pandemii, interdicții legale etc.), cu notificarea prealabilă a clientului.</p>
-    <h3>7. Proprietate intelectuală</h3>
-    <p>Toate conținuturile acestui site (texte, imagini, logo, design) sunt proprietatea WOW Events SRL și sunt protejate de legile privind drepturile de autor. Reproducerea fără acord scris este interzisă.</p>
-    <h3>8. Legea aplicabilă</h3>
-    <p>Prezentele condiții sunt guvernate de legislația română. Orice litigiu se va soluționa pe cale amiabilă sau, în caz contrar, de instanțele competente din județul Iași.</p>
-    <h3>9. Contact</h3>
-    <p>WOW Events SRL · Pașcani, str. Grădiniței, nr. 22, jud. Iași · <a href="mailto:wowevents.srl@gmail.com" style="color:var(--gold-light)">wowevents.srl@gmail.com</a> · 0726 711 366</p>
+    <h3>1. Introducere</h3>
+    <p>Bun venit pe configuratorul WOW Events. Utilizarea acestui site implică acceptarea termenilor și condițiilor de mai jos. Vă rugăm să le citiți cu atenție.</p>
+    <h3>2. Definiții</h3>
+    <p><strong style="color:var(--white)">Client:</strong> orice persoană fizică sau juridică care utilizează site-ul sau serviciile oferite prin intermediul acestuia.<br>
+    <strong style="color:var(--white)">Prestator:</strong> WOW Events SRL, furnizorul serviciilor de sonorizare, lumini și entertainment pentru evenimente.</p>
+    <h3>3. Obiectul contractului</h3>
+    <p>Prestatorul oferă servicii de sonorizare, lumini, efecte speciale și entertainment pentru evenimente private și corporate, conform pachetelor prezentate pe site sau altor oferte personalizate. Detaliile fiecărui serviciu și costul final vor fi stabilite de comun acord și detaliate într-un contract semnat de ambele părți.</p>
+    <h3>4. Rezervarea serviciilor</h3>
+    <p>Pentru a beneficia de serviciile noastre, este necesară o rezervare prealabilă. Rezervarea se consideră confirmată după achitarea unui avans de 30% din valoarea totală a contractului. În cazul anulării serviciului de către client, avansul nu este returnabil.</p>
+    <h3>5. Livrarea serviciilor</h3>
+    <p>Serviciile vor fi prestate la data, locația și în condițiile stabilite prin contract. Orice modificare a detaliilor evenimentului trebuie comunicată cu minimum 14 zile înainte de data evenimentului.</p>
+    <h3>6. Obligațiile clientului</h3>
+    <p>Clientul se obligă să furnizeze toate informațiile necesare pentru buna desfășurare a serviciilor (accesul la locație, programul evenimentului, specificații tehnice etc.) și să respecte programările stabilite.</p>
+    <h3>7. Limitarea răspunderii</h3>
+    <p>Prestatorul nu poate fi considerat responsabil pentru întârzieri sau dificultăți cauzate de factori externi independenți de voința sa (condiții meteorologice extreme, probleme tehnice neprevăzute, restricții impuse de locație etc.).</p>
+    <h3>8. Deplasări</h3>
+    <p>Pentru evenimente situate la peste 60 km față de sediul prestatorului, se adaugă un cost suplimentar pentru masă și cazare staff, conform ofertei prezentate.</p>
+    <h3>9. Legea aplicabilă</h3>
+    <p>Prezentul document este guvernat de legislația în vigoare din România. Orice dispută va fi rezolvată pe cale amiabilă sau de instanțele competente din România.</p>
+    <h3>10. Contact</h3>
+    <p>Email: wowevents.srl@gmail.com &nbsp;·&nbsp; Telefon: 0726 711 366</p>
+    <div class="legal-update">Ultima actualizare: Aprilie 2025</div>
   </div>
-</div>
 </div>
 
 <div class="legal-modal-overlay" id="modal-confidentialitate">
   <div class="legal-modal">
-    <button class="legal-close" onclick="closeLegal('confidentialitate')">✕</button>
-    <h2>Politică de Confidențialitate</h2>
-    <div class="legal-date">Ultima actualizare: Aprilie 2025</div>
-    <p>WOW Events SRL („noi", „nouă" sau „WOW Events") se angajează să protejeze confidențialitatea datelor dumneavoastră personale în conformitate cu Regulamentul (UE) 2016/679 (GDPR) și legislația română în vigoare.</p>
-    <h3>1. Cine suntem</h3>
-    <p>WOW Events SRL, cu sediul în Pașcani, str. Grădiniței, nr. 22, jud. Iași, România. Contact: <a href="mailto:wowevents.srl@gmail.com" style="color:var(--gold-light)">wowevents.srl@gmail.com</a> · 0726 711 366.</p>
-    <h3>2. Ce date colectăm</h3>
+    <button class="legal-modal-close" onclick="closeLegal('confidentialitate')">✕</button>
+    <h2>Politica de Confidențialitate</h2>
+    <p>Această politică explică modul în care WOW Events SRL colectează, utilizează și protejează datele personale ale utilizatorilor, în conformitate cu Regulamentul GDPR.</p>
+    <h3>1. Datele colectate</h3>
+    <p>Prin intermediul formularului de ofertă, putem colecta: nume complet, număr de telefon, adresă de email, data evenimentului și tipul evenimentului.</p>
+    <h3>2. Scopul colectării</h3>
     <ul>
-      <li>Nume și prenume</li>
-      <li>Număr de telefon și adresă de email</li>
-      <li>Data și locația evenimentului</li>
-      <li>Tipul evenimentului și preferințele de servicii selectate</li>
+      <li>Trimiterea ofertelor personalizate și răspunsul la solicitări</li>
+      <li>Programarea discuțiilor telefonice sau întâlnirilor</li>
+      <li>Gestionarea contractelor și a relației comerciale</li>
     </ul>
-    <h3>3. De ce colectăm aceste date</h3>
+    <h3>3. Partajarea datelor</h3>
+    <p>Nu vindem, nu închiriem și nu transferăm datele dvs. personale către terți fără consimțământul dvs. explicit.</p>
+    <h3>4. Stocarea și protecția datelor</h3>
+    <p>Datele sunt stocate pe durata relației comerciale sau până la solicitarea de ștergere din partea utilizatorului. Aplicăm măsuri de securitate pentru protejarea datelor împotriva accesului neautorizat.</p>
+    <h3>5. Drepturile utilizatorilor (GDPR)</h3>
     <ul>
-      <li>Pentru a vă transmite oferte personalizate de servicii</li>
-      <li>Pentru a încheia și executa contracte de prestări servicii</li>
-      <li>Pentru a vă contacta în legătură cu solicitările trimise</li>
-      <li>Pentru îndeplinirea obligațiilor legale și fiscale</li>
+      <li>Dreptul de acces la datele personale</li>
+      <li>Dreptul de rectificare a datelor incorecte</li>
+      <li>Dreptul de ștergere („dreptul de a fi uitat")</li>
+      <li>Dreptul de restricționare a prelucrării</li>
+      <li>Dreptul la portabilitatea datelor</li>
+      <li>Dreptul de a depune plângere la ANSPDCP</li>
     </ul>
-    <h3>4. Temeiul legal al prelucrării</h3>
-    <p>Prelucrăm datele dvs. pe baza consimțământului explicit acordat la trimiterea formularului (Art. 6(1)(a) GDPR) și în vederea executării unui contract (Art. 6(1)(b) GDPR).</p>
-    <h3>5. Cât timp păstrăm datele</h3>
-    <p>Datele colectate prin formular sunt păstrate maxim 3 ani de la ultima interacțiune sau până la retragerea consimțământului. Datele din contracte se păstrează conform obligațiilor legale (10 ani).</p>
-    <h3>6. Drepturile dumneavoastră</h3>
-    <p>Conform GDPR, aveți dreptul la: acces, rectificare, ștergere, restricționarea prelucrării, portabilitatea datelor și opoziție. Pentru exercitarea acestor drepturi, scrieți-ne la <a href="mailto:wowevents.srl@gmail.com" style="color:var(--gold-light)">wowevents.srl@gmail.com</a>.</p>
-    <h3>7. Securitatea datelor</h3>
-    <p>Implementăm măsuri tehnice și organizatorice adecvate pentru protecția datelor dvs. împotriva accesului neautorizat, pierderii sau divulgării accidentale.</p>
-    <h3>8. Contact și reclamații</h3>
-    <p>Pentru întrebări sau plângeri, ne puteți contacta la wowevents.srl@gmail.com sau la Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal (ANSPDCP) — <a href="https://www.dataprotection.ro" style="color:var(--gold-light)" target="_blank">www.dataprotection.ro</a>.</p>
+    <h3>6. Contact</h3>
+    <p>Pentru exercitarea drepturilor sau orice întrebări: wowevents.srl@gmail.com &nbsp;·&nbsp; 0726 711 366</p>
+    <div class="legal-update">Ultima actualizare: Aprilie 2025</div>
   </div>
-</div>
 </div>
 
 <div class="legal-modal-overlay" id="modal-cookies">
   <div class="legal-modal">
-    <button class="legal-close" onclick="closeLegal('cookies')">✕</button>
-    <h2>Politică Cookies</h2>
-    <div class="legal-date">Ultima actualizare: Aprilie 2025</div>
-    <p>Acest site folosește tehnologii minime de stocare locală pentru funcționarea corectă a configuratorului de pachete. Nu folosim cookie-uri de tracking sau publicitate.</p>
-    <h3>1. Ce sunt cookie-urile</h3>
-    <p>Cookie-urile sunt fișiere text de mici dimensiuni stocate pe dispozitivul dvs. atunci când vizitați un site web. Acestea permit site-ului să vă recunoască și să rețină preferințele.</p>
-    <h3>2. Ce cookie-uri folosim</h3>
+    <button class="legal-modal-close" onclick="closeLegal('cookies')">✕</button>
+    <h2>Politica de Cookies</h2>
+    <p>Acest site este o aplicație statică și nu utilizează cookie-uri de tracking, publicitate sau analiză. Nu instalăm niciun cookie terț pe dispozitivul dvs.</p>
+    <h3>Ce sunt cookie-urile?</h3>
+    <p>Cookie-urile sunt fișiere text mici stocate pe dispozitivul dvs. atunci când vizitați un site web. Ele pot fi utilizate pentru diverse scopuri, de la funcționalitate la analiză și publicitate.</p>
+    <h3>Cookie-uri utilizate pe acest site</h3>
     <ul>
-      <li><strong style="color:var(--white)">Cookie-uri strict necesare</strong> — esențiale pentru funcționarea configuratorului (selecția serviciilor, calculul prețurilor). Nu pot fi dezactivate.</li>
-      <li><strong style="color:var(--white)">Cookie-uri de sesiune</strong> — se șterg automat la închiderea browserului. Nu colectează date cu caracter personal.</li>
+      <li><strong style="color:var(--white)">Cookie-uri strict necesare:</strong> Stocate temporar în sesiunea browserului pentru funcționarea corectă a formularului de ofertă. Nu conțin date personale identificabile.</li>
+      <li><strong style="color:var(--white)">Cookie-uri de sesiune:</strong> Șterse automat la închiderea browserului.</li>
     </ul>
-    <h3>3. Ce NU folosim</h3>
-    <ul>
-      <li>Cookie-uri de publicitate sau remarketing</li>
-      <li>Cookie-uri de analiză terță parte (ex: Google Analytics)</li>
-      <li>Cookie-uri de rețele sociale</li>
-    </ul>
-    <h3>4. Cum controlați cookie-urile</h3>
-    <p>Puteți configura browserul dvs. să refuze sau să șteargă cookie-urile. Dezactivarea cookie-urilor strict necesare poate afecta funcționalitatea configuratorului.</p>
-    <h3>5. Contact</h3>
-    <p>Pentru întrebări legate de politica noastră de cookies: <a href="mailto:wowevents.srl@gmail.com" style="color:var(--gold-light)">wowevents.srl@gmail.com</a>.</p>
+    <h3>Cookie-uri de la terți</h3>
+    <p>Acest site nu integrează reclame, Google Analytics, Facebook Pixel sau alte servicii de tracking terț. Nu sunt instalate cookie-uri de publicitate sau urmărire comportamentală.</p>
+    <h3>Controlul cookie-urilor</h3>
+    <p>Puteți controla și șterge cookie-urile prin setările browserului dvs. Dezactivarea cookie-urilor necesare poate afecta funcționalitatea formularului de contact.</p>
+    <h3>Contact</h3>
+    <p>Email: wowevents.srl@gmail.com &nbsp;·&nbsp; Telefon: 0726 711 366</p>
+    <div class="legal-update">Ultima actualizare: Aprilie 2025</div>
   </div>
-</div>
 </div>
 
 </body>
